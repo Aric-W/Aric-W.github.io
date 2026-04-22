@@ -210,7 +210,13 @@
             document.getElementById("clear_button").disabled = False
             document.getElementById("play_button").disabled = False
             document.getElementById("stop_button").disabled = False
-
+        #def update_ab_display, and def update_nb_display for division
+        '''update_ab_display():
+            if current_data:
+                document.getElementById("ab_scroll_container").innerText = book[current_index]
+           update_nB_display():
+            if current_data:
+                document.getElementById("nb_scroll_container").innerText = current_data[current_index]'''
         def update_display():
             if current_data:
                 document.getElementById("scroll_container").innerText = current_data[current_index]
@@ -222,7 +228,8 @@
                 window.alert("Please enter valid positive integers.")
                 return None, None
             return v1, v2
-
+        #division will have current_data be dub[0] 
+        #and book will be ac.flipBook(dub[0])
         def process_result(dub, op_char):
             global current_data, current_index, is_playing
             is_playing = False
@@ -310,7 +317,8 @@
         def stop_click(event):
             global is_playing
             is_playing = False
-
+        #for division: if current_data[current_index][0] == '$'
+        #then
         @when("click", "#next_button")
         def next_click(event):
             global current_index
