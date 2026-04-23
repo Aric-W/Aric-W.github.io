@@ -67,6 +67,8 @@ def process_result(dub, op_char):
     book = ac.flipBook(dub[2])
     page = 0
     
+    current_data = dub[2]
+    current_index = 0
     val1 = document.getElementById("input_field1").value
     val2 = document.getElementById("input_field2").value
     
