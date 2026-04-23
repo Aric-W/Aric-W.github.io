@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyScript Image Scroller</title>
+    
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
+    <style>
+        .scroll-container {
+            background-color: #333;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            padding: 10px;
+            border: 2px solid #ccc;
+            height: 220px;
+        }
+
+        .scroll-container img {
+            height: 200px;
+            width: auto;
+            /*margin-right: 10px;*/
+            /*border-radius: 8px;*/
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>PyScript Image Scroller</h2>
+    <p>Enter the number of images to display:</p>
+    
+    <input type="number" id="imgCount" min="1" value="5">
+    <button py-click="generate_images">Display Images</button>
+
+    <div id="gallery" class="scroll-container">
+        </div>
+
+    <script type="py">
+        from pyscript import document
+
+        def generate_images(event=None):
+            # Grab references to the DOM elements
+            container = document.querySelector('#gallery')
+            input_box = document.querySelector('#imgCount')
+            
+            # Get the count from the input
+            count = int(input_box.value)
+            inp = input_box.value
+            
+            # Clear previous images
+            container.innerHTML = ''
+
+            # Generate the specified number of images
+            '''for i in range(1, count + 1):
+                img = document.createElement('img')
+                # Fixed the URL template string from your snippet
+                #img.src = f"https://picsum.photos/seed/{i}/300/200"
+                img.src = f"./images/1d.png"
+                img.alt = f"Image {i}"
+                container.appendChild(img)'''
+
+            for i in range(0, len(inp)):
+                img = document.createElement('img')
+                # Fixed the URL template string from your snippet
+                    
+                img.src =f"./images/{inp[i]}d.png"
+                img.alt = f"Image {i}"
+                container.appendChild(img)
+
+        # Initial generation on load
+        generate_images()
+    </script>
+
+</body>
+</html>

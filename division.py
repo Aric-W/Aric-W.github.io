@@ -42,6 +42,20 @@ def update_ab_display():
     if book:
         document.getElementById("ab_scroll_container").innerText = book[page]
 
+def update_nb_display():
+    val2 = document.getElementById("input_field2").value
+    
+    document.getElementById("nb_scroll_container").innerHTML = ''
+
+    for i in range(0, len(val2)):
+                img = document.createElement('img')
+                # Fixed the URL template string from your snippet
+                    
+                img.src =f"./assets/{val2[i]}c.png"
+                img.alt = f"Image {i}"
+                document.getElementById("nb_scroll_container").appendChild(img)
+
+
 def get_inputs():
     v1 = document.getElementById("input_field1").value
     v2 = document.getElementById("input_field2").value
@@ -76,6 +90,7 @@ def process_result(dub, op_char):
     document.getElementById("rods_label").innerText = f"rods: {len(dub[2][0])}"
     
     update_ab_display()
+    update_nb_display()
     enable_controls()
 
 # --- MATH OPERATIONS ---
@@ -117,6 +132,7 @@ def stop_click(event):
     is_playing = False
 #for division: if current_data[current_index][0] == '$'
 #then increment current_index and run update_nb_display
+#we will increment both page and current_index
 @when("click", "#next_button")
 def next_click(event):
     global current_index, book, page
