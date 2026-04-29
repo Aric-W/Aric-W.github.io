@@ -508,9 +508,9 @@ def division(dividend, divisor,extra=11, dontPutDecimal=False):
     if(quotient[len(quotient)-1] == '.'):
         for i in range(0,len(quotient)-1):
             quot2 = quot2 + quotient[i]
-        return listOfBoxes,quot2, states, err, unitRod,
+        return listOfBoxes,quot2, states, err, unitRod, cT
     else:
-        return listOfBoxes,quotient,states, err, unitRod
+        return listOfBoxes,quotient,states, err, unitRod, cT
 
 '''def convertToRegNum(st):
         arr = []

@@ -98,7 +98,7 @@ def get_inputs():
 #I should move this code into it's own file
 #and put the nigel cheese stuff into my essay.
 #division will have one math button but the same control buttons.
-def process_result(dub, op_char):
+'''def process_result(dub, op_char):
     global current_data, current_index, book, page, is_playing
     is_playing = False
     
@@ -114,11 +114,57 @@ def process_result(dub, op_char):
     
     document.getElementById("output_label").innerText = f"{val1} {op_char} {val2} = {dub[1]}"
     document.getElementById("rods_label").innerText = f"rods: {len(dub[2][0])}"
+    ls = []
+    st = "\n\n"
+    for c in dub[5]:
+        ls.append(c)
+    for c in ls:
+        st = st + m.stringize(c) + "\n"
+    document.getElementById("chunks_label").innerText = f"chunks: {st}"
     #document.getElementById("rods_label").innerText = f"rods: {current_data}"
     update_ab_display()
     
     update_nb_display()
     #update_soFar()
+    enable_controls()
+    #document.getElementById("chunks_label").innerText = f"chunks: {st}
+    #container = document.getElementById("nb_scroll_container")
+    
+    #container.appendChild(document.getElementById("chunks_label"))'''
+
+def process_result(dub, op_char):
+    global current_data, current_index, book, page, is_playing
+    is_playing = False
+    
+    book = ac.flipBook(dub[2])
+    page = 0
+    current_data = dub[2]
+    current_index = 0
+    
+    val1 = document.getElementById("input_field1").value
+    val2 = document.getElementById("input_field2").value
+    
+    document.getElementById("output_label").innerText = f"{val1} {op_char} {val2} = {dub[1]}"
+    document.getElementById("rods_label").innerText = f"rods: {len(dub[2][0])}"
+    
+    # Build your chunks string
+    ls = []
+    st = "\n"
+    for c in dub[5]:
+        ls.append(c)
+    for c in ls:
+        st = st + m.stringize(c) + "\n"
+        
+    # Get the label and update the text
+    chunks_elem = document.getElementById("chunks_label")
+    chunks_elem.innerText = f"chunks: {st}"
+    
+    # Move the label inside nb_scroll_container to the very front (left side)
+    container = document.getElementById("nb_scroll_container")
+    container.insertBefore(chunks_elem, container.firstChild)
+    
+    update_ab_display()
+    update_nb_display()
     enable_controls()
 
 # --- MATH OPERATIONS ---
@@ -131,7 +177,7 @@ def div(event):
 
 # --- PLAYBACK CONTROLS ---
 
-async def play_frames():
+'''async def play_frames():
     global current_index, book, page, is_playing
     is_playing = True
     #window.alert(len(current_data))
@@ -159,6 +205,32 @@ async def play_frames():
             update_ab_display()
             
 
+
+        await asyncio.sleep(0.3)
+        
+    is_playing = False
+    enable_controls()'''
+
+async def play_frames():
+    global current_index, book, page, is_playing
+    is_playing = True
+    
+    # Disable interaction during play
+    document.getElementById("prev_button").disabled = True
+    document.getElementById("next_button").disabled = True
+    document.getElementById("play_button").disabled = True
+    
+    while is_playing and current_index < len(current_data):
+        
+        # Check if the inner list actually has items before checking index [0]
+        if len(current_data[current_index]) > 0 and current_data[current_index][0] == "$":
+            update_nb_display()
+            current_index += 1
+            
+        else:
+            current_index += 1
+            page += 1
+            update_ab_display()
 
         await asyncio.sleep(0.3)
         
